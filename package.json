@@ -1,0 +1,36 @@
+{
+  "name": "thebottomofthebarrel",
+  "version": "1.0.0",
+  "description": "Scrapes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GeoffreyHanson/TheBottomOfTheBarrel.git"
+  },
+  "keywords": [
+    "Scraper"
+  ],
+  "author": "Geoffrey Hanson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GeoffreyHanson/TheBottomOfTheBarrel/issues"
+  },
+  "homepage": "https://github.com/GeoffreyHanson/TheBottomOfTheBarrel#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.0",
+    "mongojs": "^2.6.0",
+    "mongoose": "^5.3.9",
+    "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.8.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0"
+  }
+}
