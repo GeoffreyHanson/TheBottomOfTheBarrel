@@ -29,20 +29,22 @@ app.get('/scrape', (req, res) => {
     const $ = cheerio.load(response.data);
 
     $('li.clearfix').each((i, element) => {
-      const result = {};
-      result.title = $(element).find('h3').find('a').text();
-      result.link = $(element).find('h3').find('a').attr('href');
-      result.summary = $(element).find('p').text();
+      if (i < 10) {
+        const result = {};
+        result.title = $(element).find('h3').find('a').text();
+        result.link = $(element).find('h3').find('a').attr('href');
+        result.summary = $(element).find('p').text();
 
-      db.Article.create(result)
-        .then((dbArticle) => {
-          console.log(dbArticle);
-        })
-        .catch(err => res.json(err));
+        db.Article.create(result)
+          .then((dbArticle) => {
+            console.log(dbArticle);
+          })
+          .catch(err => res.json(err));
 
       // const chTitle = $(element).find('h3').find('a').text();
       // const link = $(element).find('h3').find('a').attr('href');
       // const summary = $(element).find('p').text();
+      }
     });
     // console.log(results);
     res.send("That's the bottom of the barrel.");
