@@ -9,7 +9,7 @@ const cheerio = require('cheerio');
 
 const db = require('./models');
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 
@@ -22,10 +22,6 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/xinhuaScrape
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 // mongoose.connect('mongodb://localhost/xinhuaScraper', { useNewUrlParser: true });
 
-app.get('/', (req, res) => {
-  res.send('Welcome');
-});
-
 // Scrape Data
 app.get('/scrape', (req, res) => {
   // axios.get('http://www.xinhuanet.com/english/sci/index.htm').then((response) => {
@@ -33,22 +29,22 @@ app.get('/scrape', (req, res) => {
     const $ = cheerio.load(response.data);
 
     $('li.clearfix').each((i, element) => {
-      if (i < 10) {
-        const result = {};
-        result.title = $(element).find('h3').find('a').text();
-        result.link = $(element).find('h3').find('a').attr('href');
-        result.summary = $(element).find('p').text();
+      // if (i < 10) {
+      const result = {};
+      result.title = $(element).find('h3').find('a').text();
+      result.link = $(element).find('h3').find('a').attr('href');
+      result.summary = $(element).find('p').text();
 
-        db.Article.create(result)
-          .then((dbArticle) => {
-            console.log(dbArticle);
-          })
-          .catch(err => res.json(err));
+      db.Article.create(result)
+        .then((dbArticle) => {
+          console.log(dbArticle);
+        })
+        .catch(err => res.json(err));
 
-        // const chTitle = $(element).find('h3').find('a').text();
-        // const link = $(element).find('h3').find('a').attr('href');
-        // const summary = $(element).find('p').text();
-      }
+      // const chTitle = $(element).find('h3').find('a').text();
+      // const link = $(element).find('h3').find('a').attr('href');
+      // const summary = $(element).find('p').text();
+      // }
     });
     // console.log(results);
     res.send("That's the bottom of the barrel.");
