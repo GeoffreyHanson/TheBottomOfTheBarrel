@@ -22,6 +22,10 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/xinhuaScrape
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 // mongoose.connect('mongodb://localhost/xinhuaScraper', { useNewUrlParser: true });
 
+app.get('/', (req, res) => {
+  res.send('Welcome');
+});
+
 // Scrape Data
 app.get('/scrape', (req, res) => {
   // axios.get('http://www.xinhuanet.com/english/sci/index.htm').then((response) => {
