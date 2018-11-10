@@ -9,7 +9,7 @@ const cheerio = require('cheerio');
 
 const db = require('./models');
 
-const PORT = 8080;
+const PORT = 3000;
 
 const app = express();
 
@@ -41,9 +41,9 @@ app.get('/scrape', (req, res) => {
           })
           .catch(err => res.json(err));
 
-      // const chTitle = $(element).find('h3').find('a').text();
-      // const link = $(element).find('h3').find('a').attr('href');
-      // const summary = $(element).find('p').text();
+        // const chTitle = $(element).find('h3').find('a').text();
+        // const link = $(element).find('h3').find('a').attr('href');
+        // const summary = $(element).find('p').text();
       }
     });
     // console.log(results);
