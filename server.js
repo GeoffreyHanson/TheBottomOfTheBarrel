@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/xinhuaScraper';
-mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 // mongoose.connect('mongodb://localhost/xinhuaScraper', { useNewUrlParser: true });
 
 // Scrape Data
