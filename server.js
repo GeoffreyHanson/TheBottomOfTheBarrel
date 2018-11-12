@@ -29,26 +29,55 @@ app.get('/scrape', (req, res) => {
     const $ = cheerio.load(response.data);
 
     $('li.clearfix').each((i, element) => {
-      // if (i < 10) {
-      const result = {};
-      result.title = $(element).find('h3').find('a').text();
-      result.link = $(element).find('h3').find('a').attr('href');
-      result.summary = $(element).find('p').text();
+      if (i < 10) {
+        const result = {};
+        result.title = $(element).find('h3').find('a').text();
+        result.link = $(element).find('h3').find('a').attr('href');
+        result.summary = $(element).find('p').text();
 
-      db.Article.create(result)
-        .then((dbArticle) => {
-          console.log(dbArticle);
-        })
-        .catch(err => res.json(err));
+        db.Article.create(result)
+          .then((dbArticle) => {
+            console.log(dbArticle);
+          })
+          .catch(err => res.json(err));
 
-      // const chTitle = $(element).find('h3').find('a').text();
-      // const link = $(element).find('h3').find('a').attr('href');
-      // const summary = $(element).find('p').text();
-      // }
+        // const chTitle = $(element).find('h3').find('a').text();
+        // const link = $(element).find('h3').find('a').attr('href');
+        // const summary = $(element).find('p').text();
+      }
     });
     // console.log(results);
     res.send("That's the bottom of the barrel.");
   });
+});
+
+// Grabbing all from the barrel
+app.get('/articles', (req, res) => {
+  db.Article.find({})
+    .then((dbArticle) => {
+      res.json(dbArticle);
+    })
+    .catch(err => res.json(err));
+});
+
+// Populating
+app.get('/articles/:id', (req, res) => {
+  db.Article.findOne({ _id: req.params.id })
+    .populate('note')
+    .then((dbArticle) => {
+      res.json(dbArticle);
+    })
+    .catch(err => res.json(err));
+});
+
+// Saving note
+app.post('/articles/:id', (req, res) => {
+  db.Note.create(req.body)
+    .then((dbNote) => db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true })) // eslint-disable-line
+    .then((dbArticle) => {
+      res.json(dbArticle);
+    })
+    .catch(err => res.json(err));
 });
 
 app.listen(PORT, () => {
