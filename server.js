@@ -73,7 +73,7 @@ app.get('/articles/:id', (req, res) => {
 // Saving note
 app.post('/articles/:id', (req, res) => {
   db.Note.create(req.body)
-    .then((dbNote) => db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true })) // eslint-disable-line
+    .then(dbNote => db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true })) // eslint-disable-line
     .then((dbArticle) => {
       res.json(dbArticle);
     })
