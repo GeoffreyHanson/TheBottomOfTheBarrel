@@ -1,3 +1,4 @@
+
 $.getJSON('/articles', (data) => {
   for (let i = 0; i < data.length; i++) { // eslint-disable-line
     console.log(i);
@@ -7,15 +8,24 @@ $.getJSON('/articles', (data) => {
   }
 });
 
+
+$(document).on('click', '#scraper', () => { // parenthesis needed?
+  $.ajax({
+    method: 'GET',
+    url: '/scrape',
+  })
+    .then(location.reload()); // eslint-disable-line
+});
+
 // Getting notes
 $(document).on('click', 'p', function () {
   $('#notes').empty();
   const thisId = $(this).attr('data-id');
   $.ajax({
     method: 'GET',
-    url: `/articles/${thisId}`, // Backtick?
+    url: `/articles/${thisId}`,
   })
-    .then((data) => {
+    .then((data) => { // data is path including id
       console.log('Getting notes');
       console.log(data);
       $('#notes').append(`<h2>${data.title}</h2>`);

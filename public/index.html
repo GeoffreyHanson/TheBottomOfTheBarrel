@@ -5,6 +5,10 @@
     <title>Scraping With Mongoose</title>
     <style>
       body { background-color: #F2F6D0 }
+      .controls {
+        margin: 0;
+        padding: 0;
+      }
       #wrapper {
         width: 960px;
         margin-left: auto;
@@ -38,6 +42,9 @@
   </head>
   <body>
     <div id="wrapper">
+      <ul class='controls'>
+        <button id="scraper">New scrape</button>
+      </ul>
       <h1>Note Scraper</h1>
       <div id="articles"></div>
       <div id="notes"></div>

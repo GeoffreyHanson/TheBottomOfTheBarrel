@@ -9,18 +9,20 @@ const cheerio = require('cheerio');
 
 const db = require('./models');
 
+const app = express();
 const PORT = process.env.PORT || 3000;
 
-const app = express();
 
 app.use(logger('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
 app.use(express.static('public'));
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/xinhuaScraper';
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 // mongoose.connect('mongodb://localhost/xinhuaScraper', { useNewUrlParser: true });
+
 
 // Scrape Data
 app.get('/scrape', (req, res) => {
@@ -35,19 +37,14 @@ app.get('/scrape', (req, res) => {
         result.link = $(element).find('h3').find('a').attr('href');
         result.summary = $(element).find('p').text();
 
+
         db.Article.create(result)
           .then((dbArticle) => {
             console.log(dbArticle);
           })
           .catch(err => res.json(err));
-
-        // const chTitle = $(element).find('h3').find('a').text();
-        // const link = $(element).find('h3').find('a').attr('href');
-        // const summary = $(element).find('p').text();
       }
     });
-    // console.log(results);
-    res.send("That's the bottom of the barrel.");
   });
 });
 
