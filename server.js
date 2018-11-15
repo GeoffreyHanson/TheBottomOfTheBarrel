@@ -23,6 +23,9 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/xinhuaScrape
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 // mongoose.connect('mongodb://localhost/xinhuaScraper', { useNewUrlParser: true });
 
+app.get('/', (req, res) => {
+  res.redirect('/articles');
+});
 
 // Scrape Data
 app.get('/scrape', (req, res) => {
