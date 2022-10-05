@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "watch": "nodemon server.js"
+    "watch": "nodemon server.js",
+    "prepare": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -22,18 +24,20 @@
   },
   "homepage": "https://github.com/GeoffreyHanson/TheBottomOfTheBarrel#readme",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.3",
     "cheerio": "^1.0.0-rc.2",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.0",
-    "mongojs": "^2.6.0",
-    "mongoose": "^5.3.9",
-    "morgan": "^1.9.1"
+    "mongojs": "^3.0.0",
+    "mongoose": "^5.13.15",
+    "morgan": "^1.9.1",
+    "@snyk/protect": "latest"
   },
   "devDependencies": {
     "eslint": "^5.8.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
     "nodemon": "^1.18.6"
-  }
+  },
+  "snyk": true
 }
